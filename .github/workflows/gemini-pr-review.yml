@@ -30,6 +30,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LANGUAGE: "English"
           MODEL_CODE: "models/gemini-2.5-flash-preview-04-17"
+          USE_SINGLE_COMMENT_REVIEW: "true"
           EXTRA-PROMPT: |
             You are an expert Principal Software Engineer reviewing this banking application Pull Request. 
             Analyze the git diff meticulously. Provide clear, professional, and actionable feedback.
