@@ -21,7 +21,7 @@ jobs:
         uses: sshnaidm/gemini-code-review-action@v2
         with:
           gemini-key: ${{ secrets.GEMINI_API_KEY }}  # Notice 'gemini-key' is the exact required input parameter name
-          model: 'gemini-2.5-pro'
+          model: 'gemini-1.5-pro'
           extra-prompt: |
             You are an expert Principal Software Engineer reviewing this banking application Pull Request. 
             Analyze the git diff meticulously. Provide clear, professional, and actionable feedback.
