@@ -1,7 +1,14 @@
-name: Gemini Automated Code Reviewer
+name: "Run ai-reviewer"
+
+permissions:
+  pull-requests: write
+  contents: read
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
 
 jobs:
   review:
@@ -16,12 +23,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Gemini PR Review Engine
-        uses: sshnaidm/gemini-code-review-action@v2
+      - name: Gemini Review Bot
+        uses: Nasubikun/ai-reviewer@v1.0.6
         with:
-          gemini-key: ${{ secrets.GEMINI_API_KEY }}  # Notice 'gemini-key' is the exact required input parameter name
-          model: 'gemini-pro'
-          extra-prompt: |
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LANGUAGE: "English"
+          MODEL_CODE: "models/gemini-2.5-flash-preview-04-17"
+          EXTRA-PROMPT: |
             You are an expert Principal Software Engineer reviewing this banking application Pull Request. 
             Analyze the git diff meticulously. Provide clear, professional, and actionable feedback.
             
