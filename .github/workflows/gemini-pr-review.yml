@@ -18,19 +18,17 @@ jobs:
           fetch-depth: 0
 
       - name: Gemini PR Review Engine
-        uses: sshnaidm/gemini-github-actions@v2 # Production pre-built community wrapper
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provided natively by GitHub Actions execution
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # Your secure custom secret token
+        uses: sshnaidm/gemini-code-review-action@v2
         with:
-          model: 'gemini-1.5-pro' # Utilizing a deeper analytical reasoning engine for code diagnostics
-          prompt: |
-            You are an expert Principal Software Engineer reviewing a Pull Request. 
+          gemini-key: ${{ secrets.GEMINI_API_KEY }}  # Notice 'gemini-key' is the exact required input parameter name
+          model: 'gemini-2.5-pro'
+          extra-prompt: |
+            You are an expert Principal Software Engineer reviewing this banking application Pull Request. 
             Analyze the git diff meticulously. Provide clear, professional, and actionable feedback.
             
             Enforce the following criteria:
             1. Check for missing error handling, input validation bypasses, or structural logic flaws.
-            2. If Java/Spring Boot code is modified, verify proper declarative database transaction boundaries (@Transactional) and ACID compliance safety.
+            2. If Java/Spring Boot code is modified, verify proper declarative database transaction boundaries (@Transactional), secure DTO logic mapping, and ACID compliance safety.
             3. If Node.js/Fastify code is modified, check for non-blocking asynchronous event handling consistency.
             4. Suggest performance optimizations or security improvements (e.g., SQL injection risks, unsafe hashing, memory leaks).
             5. Ensure code changes are accompanied by matching unit or integration test layers.
