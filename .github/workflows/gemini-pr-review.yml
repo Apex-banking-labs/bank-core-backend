@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Gemini PR Review Engine
-        uses: google-gemini/gemini-github-actions/review@v2 # Production pre-built community wrapper
+        uses: sshnaidm/gemini-github-actions@v2 # Production pre-built community wrapper
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provided natively by GitHub Actions execution
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # Your secure custom secret token
