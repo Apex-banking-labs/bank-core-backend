@@ -18,11 +18,6 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout Code Codebase
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - name: Gemini Review Bot
         uses: Nasubikun/ai-reviewer@v1.0.6
         with:
