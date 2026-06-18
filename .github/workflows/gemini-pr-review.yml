@@ -24,4 +24,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LANGUAGE: "English"
-          MODEL_CODE: "models/gemini-2.5-flash-preview-04-17"
+          MODEL_CODE: "models/gemini-1.5-flash"
