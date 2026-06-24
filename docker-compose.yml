@@ -17,8 +17,8 @@ services:
     container_name: apex-account-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: account_admin
-      POSTGRES_PASSWORD: local_dev_password
+      POSTGRES_USER: ${ACCOUNT_DB_USER}
+      POSTGRES_PASSWORD: ${ACCOUNT_DB_PASSWORD}
       POSTGRES_DB: db_accounts
     ports:
       - "5437:5432"
@@ -35,8 +35,8 @@ services:
     container_name: apex-transaction-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ledger_admin
-      POSTGRES_PASSWORD: local_dev_password
+      POSTGRES_USER: ${TRANSACTION_DB_USER}
+      POSTGRES_PASSWORD: ${TRANSACTION_DB_PASSWORD}
       POSTGRES_DB: transaction_db
     ports:
       - "5438:5432"

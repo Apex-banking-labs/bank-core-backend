@@ -24,6 +24,35 @@ The system utilizes a split-ecosystem approach to leverage the exact operational
 * **Caching:** `Redis` for rapid token revocation lookups and session caching.
 * **Message Broker:** `RabbitMQ` handling asynchronous, event-driven message queues between microservices.
 
+
+| Service / Infrastructure Component | Runtime Layer | Host Port | Purpose |
+| :--- | :--- | :--- | :--- |
+| **api-gateway** | Node.js / Fastify | `8080` | Reverse proxying, client rate-limiting, and route orchestration |
+| **auth-service** | Node.js / Fastify | `8081` | Stateless JWT issuance, validation, and security middleware |
+| **account-service** | Java 17 / Spring Boot | `8082` | Checking/Savings account profile schemas and entity states |
+| **transaction-service** | Java 17 / Spring Boot | `8083` | High-frequency ledger entries, balance adjustments, and audits |
+| **PostgreSQL (Account DB)** | Database Engine | `5437` | Dedicated isolated datastore for `account-service` |
+| **PostgreSQL (Transaction DB)** | Database Engine | `5438` | Dedicated isolated datastore for `transaction-service` |
+| **Redis** | In-Memory Cache | `6375` | Token revocation registries and session token caching |
+| **RabbitMQ** | Message Broker | `5672` | AMQP asynchronous event pipeline handling |
+
+## 🔐 Secrets Management & Environment Variables
+
+This project strictly decouples credentials from infrastructure code. Before running the Docker cluster, you must create a `.env` file at the root of the repository.
+
+Create a `.env` file and populate it with the following baseline development credentials:
+
+```ini
+# Account Service Database Credentials
+ACCOUNT_DB_USER=account_admin
+ACCOUNT_DB_PASSWORD=db_password
+
+# Transaction Service Database Credentials
+TRANSACTION_DB_USER=ledger_admin
+TRANSACTION_DB_PASSWORD=db_password
+```
+(Note: The global .gitignore is configured to prevent this file from being pushed to version control).
+
 ## 🚀 Local Development Setup (Ubuntu Linux)
 
 ### System Prerequisites
