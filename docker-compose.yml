@@ -12,9 +12,53 @@ services:
       com.apex.banking.layer: "infrastructure"
       com.apex.banking.service: "redis-cache"
 
+  bank_account_db:
+    image: postgres:15-alpine
+    container_name: apex-account-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${ACCOUNT_DB_USER}
+      POSTGRES_PASSWORD: ${ACCOUNT_DB_PASSWORD}
+      POSTGRES_DB: db_accounts
+    ports:
+      - "5437:5432"
+    volumes:
+      - account_db_data:/var/lib/postgresql/data
+    networks:
+      - banking_network
+    labels:
+      com.apex.banking.layer: "infrastructure"
+      com.apex.banking.domain: "account-service"
+
+  bank_transaction_db:
+    image: postgres:15-alpine
+    container_name: apex-transaction-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${TRANSACTION_DB_USER}
+      POSTGRES_PASSWORD: ${TRANSACTION_DB_PASSWORD}
+      POSTGRES_DB: transaction_db
+    ports:
+      - "5438:5432"
+    volumes:
+      - transaction_db_data:/var/lib/postgresql/data
+    networks:
+      - banking_network
+    labels:
+      com.apex.banking.layer: "infrastructure"
+      com.apex.banking.domain: "transaction-service"
+
 networks:
   banking_network:
     driver: bridge
     labels:
       com.apex.banking.layer: "infrastructure"
       com.apex.banking.service: "redis-cache"
+
+volumes:
+  account_db_data:
+    labels:
+      com.apex.banking.layer: "infrastructure"
+  transaction_db_data:
+    labels:
+      com.apex.banking.layer: "infrastructure"
