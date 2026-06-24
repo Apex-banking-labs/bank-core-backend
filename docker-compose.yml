@@ -48,6 +48,19 @@ services:
       com.apex.banking.layer: "infrastructure"
       com.apex.banking.domain: "transaction-service"
 
+  message_broker:
+    image: rabbitmq:3-management-alpine
+    container_name: apex-message-broker
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - banking_network
+    labels:
+      com.apex.banking.layer: "infrastructure"
+      com.apex.banking.service: "rabbitmq"
+
 networks:
   banking_network:
     driver: bridge
