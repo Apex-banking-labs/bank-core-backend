@@ -52,9 +52,13 @@ services:
     image: rabbitmq:3-management-alpine
     container_name: apex-message-broker
     restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${RABBITMQ_USER}
+      POSTGRES_PASSWORD: ${RABBITMQ_PASSWORD}
+      POSTGRES_DB: transaction_db
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
     networks:
       - banking_network
     volumes:
