@@ -48,6 +48,25 @@ services:
       com.apex.banking.layer: "infrastructure"
       com.apex.banking.domain: "transaction-service"
 
+  message_broker:
+    image: rabbitmq:3-management-alpine
+    container_name: apex-message-broker
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${RABBITMQ_USER}
+      POSTGRES_PASSWORD: ${RABBITMQ_PASSWORD}
+      POSTGRES_DB: transaction_db
+    ports:
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:15672:15672"
+    networks:
+      - banking_network
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    labels:
+      com.apex.banking.layer: "infrastructure"
+      com.apex.banking.service: "rabbitmq"
+
 networks:
   banking_network:
     driver: bridge
@@ -60,5 +79,8 @@ volumes:
     labels:
       com.apex.banking.layer: "infrastructure"
   transaction_db_data:
+    labels:
+      com.apex.banking.layer: "infrastructure"
+  rabbitmq_data:
     labels:
       com.apex.banking.layer: "infrastructure"
