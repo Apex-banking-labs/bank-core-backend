@@ -57,6 +57,8 @@ services:
       - "15672:15672"
     networks:
       - banking_network
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     labels:
       com.apex.banking.layer: "infrastructure"
       com.apex.banking.service: "rabbitmq"
@@ -73,5 +75,8 @@ volumes:
     labels:
       com.apex.banking.layer: "infrastructure"
   transaction_db_data:
+    labels:
+      com.apex.banking.layer: "infrastructure"
+  rabbitmq_data:
     labels:
       com.apex.banking.layer: "infrastructure"
