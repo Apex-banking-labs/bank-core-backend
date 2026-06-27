@@ -3,7 +3,7 @@ import type { FastifyInstance, FastifyRequest, FastifyReply} from "fastify";
 
 const fastify: FastifyInstance = Fastify({ logger: true});
 fastify.get('/health', async (request: FastifyRequest, reply: FastifyReply) => {
-    return { status: 'OK', service: 'identity-service'};
+    return { status: 'OK', service: 'auth-service'};
 });
 
 const start = async (): Promise<void> => {

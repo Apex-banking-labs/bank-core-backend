@@ -3,7 +3,6 @@
   "compilerOptions": {
     "module": "nodenext",
     "target": "es2022",
-    "types": [],
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
