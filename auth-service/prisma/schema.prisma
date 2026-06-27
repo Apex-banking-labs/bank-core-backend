@@ -20,11 +20,14 @@ enum KycTier {
 // MODELS
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  kycTier   KycTier  @default(TIER_0_UNVERIFIED)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(uuid()) @db.Uuid
+  email         String   @unique
+  firstname     String
+  lastname      String
+  passwordHash  String
+  kycTier       KycTier  @default(TIER_0_UNVERIFIED)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("users") // Maps the Prisma model to a lowercase "users" table in Postgres
 }
