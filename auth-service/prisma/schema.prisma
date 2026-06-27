@@ -1,0 +1,30 @@
+// PRISMA SCHEMA DEFINITION (Identity & Auth Service)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ENUMS
+
+enum KycTier {
+  TIER_0_UNVERIFIED
+  TIER_1_BASIC
+  TIER_2_VERIFIED
+  TIER_3_PREMIUM
+}
+
+// MODELS
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  kycTier   KycTier  @default(TIER_0_UNVERIFIED)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users") // Maps the Prisma model to a lowercase "users" table in Postgres
+}
